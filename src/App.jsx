@@ -3,57 +3,61 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
-  console.log("component rendering....");
-  const [count, setCount] = useState(0);
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState("");
+  //initialization------------------
 
-  useEffect(() => {
-    console.log("useEffect componnet re rendered");
-  });
-  /* console.log(name);
-  console.log(email); */
-  /*  useEffect(() => {
-    console.log("the name is", name);
-  }, [name]);
+  const [todo, setTodo] = useState("");
+  //let [finalTodoList, setFinalTodoList] = useState(null);
+  const [todoList, setTodoList] = useState(
+    JSON.parse(localStorage.getItem("todoList")) || []
+  );
+  console.log("to do text is:", todo);
+  //finalTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
 
-  useEffect(() => {
-    console.log("the email Only once");
-  }, []); */
+  //methods---------------------------------------------------
 
-  const counter = () => {
-    let newCount = count + 1;
-    setCount(newCount);
+  const saveTodo = () => {
+    let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+    todoList.push(todo);
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+    setTodoList(todoList);
+
+    //setTodo("");
   };
+  console.log("to do list", todoList);
+  //useEffects--------------------------------------------------
 
-  useEffect(() => {
-    console.log("count changed to:", count);
-  }, [count]);
+  /*  useEffect(() => {
+    finalTodoList = JSON.parse(localStorage.getItem("todoList")) || [];
+    setTodoList(finalTodoList);
+  }, []);
+ */
+
   return (
     <>
-      <h1>Loginsss</h1>
-      {/* <input
-        type="text"
-        name=""
-        id=""
-        value={name}
-        placeholder="name"
-        onChange={(event) => {
-          setName(event.target.value);
-        }}
-      />
+      <h1>To Do App</h1>
+      <h3>To Do List:</h3>
+
+      <h4>
+        <ol>
+          {todoList.map((item, index) => (
+            <li>{item}</li>
+          ))}
+        </ol>
+      </h4>
+
+      {todoList == "" && <h2>List is empty</h2>}
+
+      <p>Enter the Todo List here:</p>
       <input
         type="text"
         name=""
         id=""
-        value={email}
-        placeholder="email"
+        placeholder="Type here"
         onChange={(event) => {
-          setEmail(event.target.value);
+          setTodo(event.target.value);
         }}
-      /> */}
-      <h1>Count:{count}</h1>
-      <button onClick={counter}>Increment</button>
+      />
+      <button onClick={saveTodo}>Add+</button>
     </>
   );
 }
