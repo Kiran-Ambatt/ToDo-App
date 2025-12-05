@@ -4,18 +4,19 @@ import "./App.css";
 function App() {
   //initialization------------------
   const [todo, setTodo] = useState(""); // for storing input variable to state
-  const [todoList, setTodoList] = useState(
-    JSON.parse(localStorage.getItem("todoList")) || []
-  ); // for getting the initial item from local storage
+  const [todoList, setTodoList] = useState([]);
 
+  //useEffect-------------------------------------------------
+  useEffect(() => {
+    let data = JSON.parse(localStorage.getItem("todoList")) || []; //useeffect to get the data from local storage
+    setTodoList(data);
+  }, [todo]);
   //methods---------------------------------------------------
   const saveTodo = () => {
     // method to store the items to local storage.
     if (todo != "") {
-      let todoList = JSON.parse(localStorage.getItem("todoList")) || []; //get the item from local storage
       todoList.push(todo); // push the input to todoList
       localStorage.setItem("todoList", JSON.stringify(todoList)); //store the list to local storage
-      setTodoList(todoList); // assign the pushed list to state variable
       setTodo(""); // empty the input field
     }
   };
