@@ -4,7 +4,6 @@ import "./App.css";
 function App() {
   //initialization------------------
   const [todo, setTodo] = useState(""); // for storing input variable to state
-  const [list, setList] = useState([]);
   const [todoList, setTodoList] = useState([]);
   let [removelist, setRemovelist] = useState([]);
   const [show, setShow] = useState("");
@@ -21,21 +20,20 @@ function App() {
     // method to store the items to local storage.
     if (todo != "") {
       todoList.push({ name: todo, id: Date.now() });
-      //todoList.push(list); // push the input to todoList
       localStorage.setItem("todoList", JSON.stringify(todoList)); //store the list to local storage
       setTodo(""); // empty the input field
-      //localStorage.removeItem(qq);
       console.log(todoList);
     }
   };
   const remove = (itemId) => {
+    //method to remove the items from list
     console.log("remove method called", itemId);
-    removelist = todoList.filter((task) => task.id !== itemId);
+    removelist = todoList.filter((task) => task.id !== itemId); // using filter method, comparing the existing todo list to the one-
+    //-which passed during calling the remove method and return the remaining list.
     console.log("list after removal is", removelist);
-    localStorage.setItem("todoList", JSON.stringify(removelist));
-    setShow(Date.now());
-
-    console.log("todo list after removal:", todo);
+    localStorage.setItem("todoList", JSON.stringify(removelist)); //storing the remaining list to local storage.
+    setShow(Date.now()); // this is used to update the state variable "show" by assigning present date so that useEffect will be called-
+    // - each time you call the remove method.here the show variable keep changing
   };
 
   return (
