@@ -6,13 +6,16 @@ function App() {
   const [todo, setTodo] = useState(""); // for storing input variable to state
   const [list, setList] = useState([]);
   const [todoList, setTodoList] = useState([]);
-  const [showList, setShowList] = useState([]);
+  let [removelist, setRemovelist] = useState([]);
+  const [show, setShow] = useState("");
+
+  console.log("todo list before removal:", todo);
 
   //useEffect-------------------------------------------------
   useEffect(() => {
     let data = JSON.parse(localStorage.getItem("todoList")) || []; //useeffect to get the data from local storage
     setTodoList(data);
-  }, [todo]);
+  }, [todo, show]);
   //methods---------------------------------------------------
   const saveTodo = () => {
     // method to store the items to local storage.
@@ -27,9 +30,12 @@ function App() {
   };
   const remove = (itemId) => {
     console.log("remove method called", itemId);
-    let removelist = todoList.filter((task) => task.id !== itemId);
+    removelist = todoList.filter((task) => task.id !== itemId);
     console.log("list after removal is", removelist);
     localStorage.setItem("todoList", JSON.stringify(removelist));
+    setShow(Date.now());
+
+    console.log("todo list after removal:", todo);
   };
 
   return (
