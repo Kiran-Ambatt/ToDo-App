@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 
 function App() {
+  // trying git stash
   //initialization------------------
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
@@ -32,6 +33,16 @@ function App() {
   return (
     <>
       <h1>To Do App</h1>
+      <p>Enter the Todo List here:</p>
+      <input
+        type="text"
+        value={todo}
+        placeholder="Type here"
+        onChange={(event) => {
+          setTodo(event.target.value);
+        }}
+      />
+      <button onClick={saveTodo}>Add+</button>
       <h3>To Do List:</h3>
       <h4>
         <ol>
@@ -44,16 +55,6 @@ function App() {
         </ol>
       </h4>
       {todoList == "" && <h2>List is empty</h2>}{" "}
-      <p>Enter the Todo List here:</p>
-      <input
-        type="text"
-        value={todo}
-        placeholder="Type here"
-        onChange={(event) => {
-          setTodo(event.target.value);
-        }}
-      />
-      <button onClick={saveTodo}>Add+</button>
     </>
   );
 }
