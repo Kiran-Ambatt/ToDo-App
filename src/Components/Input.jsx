@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import List from "./List";
+import Header from "./Header";
 function Input() {
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
@@ -18,7 +19,7 @@ function Input() {
   return (
     <>
       <div>
-        <p>Enter the Todo List here:</p>
+        <Header setTodo={setTodo} />
         <input
           type="text"
           value={todo}
