@@ -1,11 +1,7 @@
-function Header({ setTodo = () => {} }) {
-  const clear = () => {
-    setTodo("");
-  };
+function Header() {
   return (
     <div>
       <h1>To Do App</h1>
-      <button onClick={clear}>clear</button>
     </div>
   );
 }

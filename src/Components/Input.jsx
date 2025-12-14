@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import List from "./List";
-import Header from "./Header";
-function Input() {
-  const [todo, setTodo] = useState("");
-  const [todoList, setTodoList] = useState([]);
+import { useEffect } from "react";
+function Input({
+  todo = "",
+  setTodo = () => {},
+  todoList = [],
+  setTodoList = () => {},
+  inputRef, //all these are props, so that other person can see what are the props passed.
+}) {
   useEffect(() => {
     // get the data from local storage
     setTodoList(JSON.parse(localStorage.getItem("todoList")) || []);
@@ -18,19 +20,16 @@ function Input() {
   };
   return (
     <>
-      <div>
-        <Header setTodo={setTodo} />
-        <input
-          type="text"
-          value={todo}
-          placeholder="Type here"
-          onChange={(event) => {
-            setTodo(event.target.value);
-          }}
-        />
-        <button onClick={saveTodo}>Add+</button>
-      </div>
-      <List todoList={todoList} setTodoList={setTodoList} />
+      <input
+        type="text"
+        value={todo}
+        ref={inputRef}
+        placeholder="Type here"
+        onChange={(event) => {
+          setTodo(event.target.value);
+        }}
+      />
+      <button onClick={saveTodo}>Add+</button>
     </>
   );
 }
