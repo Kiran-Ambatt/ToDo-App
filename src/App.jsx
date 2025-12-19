@@ -1,11 +1,29 @@
-import { useState } from "react";
+import "./App.css";
 import Header from "./Components/Header";
+import List from "./Components/List";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import Login from "./Login";
 
 function App() {
-  const [number] = useState([5, 6, 7, 8, 9]); // initializing array to a state variable to send it as props
   return (
     <>
-      <Header num={number} /> {/* passing props to Header component */}
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <Header />
+                <List />
+              </>
+            }
+          />
+
+          {/* <Link to={"/Login"}>Login</Link> */}
+
+          <Route path="/Login" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
